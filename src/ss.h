@@ -73,6 +73,7 @@ typedef struct ss_sock_info {
     
     /* Process info (if available) */
     pid_t pid;
+    int fd;                       /* File descriptor number */
     char proc_name[MAX_PROC_NAME];
     uid_t uid;
     

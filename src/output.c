@@ -37,14 +37,14 @@ const char *tcp_state_to_string(ss_tcp_state_t state)
     }
 }
 
-/* Get protocol name string */
+/* Get protocol name string (Linux ss uses tcp/udp for both IPv4 and IPv6) */
 static const char *get_proto_name(const ss_sock_info_t *sock)
 {
     switch (sock->protocol) {
         case SS_PROTO_TCP:
-            return sock->family == SS_FAMILY_INET6 ? "tcp6" : "tcp";
+            return "tcp";
         case SS_PROTO_UDP:
-            return sock->family == SS_FAMILY_INET6 ? "udp6" : "udp";
+            return "udp";
         case SS_PROTO_UNIX_STREAM:
             return "u_str";
         case SS_PROTO_UNIX_DGRAM:
@@ -106,19 +106,16 @@ void print_socket(const ss_sock_info_t *sock, const ss_options_t *opts)
     printf("%-*s ", COL_LOCAL, local_str);
     printf("%-*s", COL_REMOTE, remote_str);
     
-    /* Print process info if requested */
+    /* Print process info if requested (Linux ss compatible format) */
     if (opts->show_process) {
         if (sock->pid > 0 && sock->proc_name[0] != '\0') {
-            char proc_str[COL_PROCESS];
-            snprintf(proc_str, sizeof(proc_str), "\"%s\",%d", 
-                     sock->proc_name, sock->pid);
-            printf(" %-*s", COL_PROCESS, proc_str);
+            /* Linux ss format: users:(("name",pid=123,fd=4)) */
+            printf(" users:((\"%s\",pid=%d,fd=%d))", 
+                   sock->proc_name, sock->pid, sock->fd);
         } else if (sock->pid > 0) {
-            char proc_str[COL_PROCESS];
-            snprintf(proc_str, sizeof(proc_str), "pid=%d", sock->pid);
-            printf(" %-*s", COL_PROCESS, proc_str);
+            printf(" users:((\"?\",pid=%d,fd=%d))", sock->pid, sock->fd);
         } else {
-            printf(" %-*s", COL_PROCESS, "-");
+            printf(" ");
         }
     }
     

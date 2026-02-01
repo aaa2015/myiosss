@@ -51,13 +51,13 @@ static ss_tcp_state_t darwin_to_ss_state(int state)
     }
 }
 
-/* Format IPv4 address with port */
+/* Format IPv4 address with port (Linux ss compatible: 0.0.0.0 instead of *) */
 static void format_addr_v4(struct in_addr *addr, uint16_t port, char *buf, size_t buflen)
 {
     char ip_str[INET_ADDRSTRLEN];
     
     if (addr->s_addr == INADDR_ANY) {
-        strcpy(ip_str, "*");
+        strcpy(ip_str, "0.0.0.0");
     } else {
         inet_ntop(AF_INET, addr, ip_str, sizeof(ip_str));
     }
@@ -69,13 +69,13 @@ static void format_addr_v4(struct in_addr *addr, uint16_t port, char *buf, size_
     }
 }
 
-/* Format IPv6 address with port */
+/* Format IPv6 address with port (Linux ss compatible: [::] instead of *) */
 static void format_addr_v6(struct in6_addr *addr, uint16_t port, char *buf, size_t buflen)
 {
     char ip_str[INET6_ADDRSTRLEN];
     
     if (IN6_IS_ADDR_UNSPECIFIED(addr)) {
-        strcpy(ip_str, "*");
+        strcpy(ip_str, "::");
     } else {
         inet_ntop(AF_INET6, addr, ip_str, sizeof(ip_str));
     }
@@ -229,6 +229,7 @@ static ss_sock_info_t *collect_process_sockets(pid_t pid, ss_sock_info_t *list,
         
         ss_sock_info_t sock = {0};
         sock.pid = pid;
+        sock.fd = fdinfo[i].proc_fd;
         
         /* Determine socket type */
         int family = si->psi.soi_family;
