@@ -17,7 +17,7 @@ A Linux `ss` command implementation for macOS and iOS (jailbroken). Provides soc
 ### macOS (Homebrew)
 
 ```bash
-brew tap fangqingyuan/ss
+brew tap aaa2015/ss
 brew install ss-apple
 ```
 
@@ -25,7 +25,7 @@ brew install ss-apple
 
 Add the following source to Cydia or Sileo:
 ```
-https://fangqingyuan.github.io/ss-apple/
+https://aaa2015.github.io/myiosss/repo/
 ```
 
 Then search for and install "SS (Socket Statistics)".
