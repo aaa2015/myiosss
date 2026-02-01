@@ -131,8 +131,26 @@ static void collect_and_display(const ss_options_t *opts)
         /* Print header and sockets */
         print_header(opts);
         
+        /* Print UDP first (Linux ss order) */
         for (ss_sock_info_t *s = list; s != NULL; s = s->next) {
-            print_socket(s, opts);
+            if (s->protocol == SS_PROTO_UDP) {
+                print_socket(s, opts);
+            }
+        }
+        
+        /* Then print TCP */
+        for (ss_sock_info_t *s = list; s != NULL; s = s->next) {
+            if (s->protocol == SS_PROTO_TCP) {
+                print_socket(s, opts);
+            }
+        }
+        
+        /* Finally print UNIX sockets */
+        for (ss_sock_info_t *s = list; s != NULL; s = s->next) {
+            if (s->protocol == SS_PROTO_UNIX_STREAM || 
+                s->protocol == SS_PROTO_UNIX_DGRAM) {
+                print_socket(s, opts);
+            }
         }
     }
     
