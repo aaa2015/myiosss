@@ -18,7 +18,10 @@ A Linux `ss` command implementation for macOS and iOS (jailbroken). Provides soc
 
 ```bash
 brew tap aaa2015/ss
-brew install ss-apple
+brew install aaa2015/ss/ss
+
+# 使用
+ss -tulnp
 ```
 
 ### iOS (Cydia/Sileo)
