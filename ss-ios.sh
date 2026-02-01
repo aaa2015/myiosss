@@ -2,7 +2,7 @@
 # ss - Socket Statistics wrapper for iOS (jailbroken)
 # Parses netstat/lsof output to provide ss-like interface
 
-VERSION="1.0.0"
+VERSION="1.0.1"
 
 # Default options
 SHOW_TCP=false

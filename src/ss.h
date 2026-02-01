@@ -11,7 +11,7 @@
 #include <sys/types.h>
 
 /* Version */
-#define SS_VERSION "1.0.0"
+#define SS_VERSION "1.0.1"
 
 /* Maximum buffer sizes */
 #define MAX_ADDR_LEN 128
