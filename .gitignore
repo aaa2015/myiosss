@@ -1,0 +1,17 @@
+# Build outputs
+build/
+*.o
+*.dSYM/
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+/tmp/
+*.tmp
