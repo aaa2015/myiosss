@@ -1,0 +1,14 @@
+Package: com.fangqingyuan.ss
+Name: SS (Socket Statistics)
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: Linux ss command for iOS - display socket statistics with process info. High performance implementation with native process lookup.
+Maintainer: fangqingyuan <fangqingyuan@example.com>
+Author: fangqingyuan
+Section: Utilities
+Depends: firmware (>= 13.0)
+Filename: debs/ss-apple_1.0.0_iphoneos-arm.deb
+Size: 6946
+MD5sum: b9d170945d9e672b2cb528b33f702622
+SHA256: d19b30d554960412c3a8b768e7fe001468d047e639d87ebd14e85317e92b8862
+
